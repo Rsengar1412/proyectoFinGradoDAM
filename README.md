@@ -29,3 +29,22 @@ Este poryecto consiste en uan simulación educativa de uan tienda onlien simial 
 3. Implementar scraping web para extraer porductos reales de Aliexpress.
 4. Auotmatizar la importación de porductos a WooComerce via CSV
 5. Integrar pasas seguaro y recuperación de contraseá 
+
+---
+
+## Funciomaito Principales
+### Web eComerce (WordPress + Woocomerce)
+- Buscar productos, añadir al carrito y comrpar con stipe o Paypal
+- Añadir reseñas y recuperar contraseña por email
+- Inegracioón con plugins: Elementor, WP Mail SMTP, Image Optimizer, entre otros.
+
+### Aplicación de Escritorio (Python)
+- Listado, busqueda, modificación y eliminación de productos.
+- Importación desde CSV y manual
+- Ajsute de precios según infglación.
+- Interfaz amigable conectada a la base de datos de WooComerce.
+
+### Scraping web (Python)
+- Obtención de porductos desde Aliexpress
+- Convesiónd e imágenes '.avif' a '.jpg'
+- Almacenamiento en CSV para importar en WooComerce.
