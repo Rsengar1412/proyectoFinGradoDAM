@@ -1,12 +1,12 @@
 # Proyecto Fin de Grado DAM - Web de scrapeo Aliexpress y Gestión de Productos
 
-Este poryecto consiste en uan simulación educativa de uan tienda onlien simial a AlieExpress. Integra scraping web con Python, gestión de porducot mediante una aplicación de escritorio y una tienda online desarrollado en WordPress con Woocomerce. Todo ello con el objetivo de comprender los flujops de trabajo reales de un sistema eComerce.
+Este poryecto consiste en una simulación educativa de uan tienda online simial a AlieExpress. Integra scraping web con Python, gestión de porductos mediante una aplicación de escritorio y una tienda online desarrollado en WordPress con Woocomerce. Todo ello con el objetivo de comprender los flujops de trabajo reales de un sistema eComerce.
 
 ## Autor
 
 - ""Nombre:"" Ricardo Senra García
 - ""Tutor:"" Jose Luís Boa Salas
-- ""Curso:"" Desarrollod de Aplicaciones Multiplataforma (DAM)
+- ""Curso:"" Desarrollo de Aplicaciones Multiplataforma (DAM)
 - ""Centro:"" I.E.S Delgado Hernández
 - ""Fecha:"" 2024/2025
 
