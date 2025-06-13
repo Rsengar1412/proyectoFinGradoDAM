@@ -29,7 +29,7 @@ import subprocess
 # Configuración de Categorias y tamamó máximo del archivo CSV
 CATEGORIA_PRINCIPAL = "HogarYJardin" #Categoría principal de los productos
 SUBCATEGORIAS = "Alfombrillas"# Esta es la subcategoría del producoto(Accesroios > Accesrios sintron)
-PARENTESIS = "(1)" # El panrentesis lo tengo puesot para ordenar las categorías con las subcategorías cuando iva importanto las categorías en el wordpres 
+#PARENTESIS = "(1)" # El panrentesis lo tengo puesot para ordenar las categorías con las subcategorías cuando iva importanto las categorías en el wordpres 
 # Esti es oara crear arcivos CSV que no supere el tamaño máximo de 35MB para poder inportarlos a WordPress
 MAX_FILE_SIZE = 35 * 1024 * 1024  # 35MB en bytes
 
@@ -44,15 +44,6 @@ todos_productos = []  # Lista para almacenar todos los productos
 archivos_csv = []  # Lista para almacenar los nombres de los archivos CSV generados
 driver = webdriver.Chrome() # Driver de  navegador Chrome o sino no funciona el scrapper
 driver.close() # Cerrar el driver al inicio para evitar problemas de memoria
-
-# URl del sitio web a scrapear
-#driver.get("https://es.aliexpress.com/w/wholesale-Bufandas-lisas.html")
-#driver.get("https://es.aliexpress.com/w/wholesale-Cadenas-de-cintura.html") #Cadenas de cintura
-#driver.get("https://es.aliexpress.com/w/wholesale-Cinturones-de-hombre.html") #Cinturones de hombre
-#driver.get("https://es.aliexpress.com/w/wholesale-Cinturones-de-mujer.html") #Cinturones de mujer
-#driver.get("https://es.aliexpress.com/w/wholesale-Cinturones-modernos.html") #Cinturones modernos
-#driver.get("https://es.aliexpress.com/w/wholesale-Clips-para-el-pelo.html") #Clips para el pelo
-#driver.get("https://es.aliexpress.com/w/wholesale-Corbatas.html") #Corbatas
 
 
 driver.get = None  
@@ -484,7 +475,7 @@ def generar_csv_wordpress(productos):
            'Cantidad de bajo inventario','¿Permitir reservas de productos agotados?',
            '¿Vendido individualmente?','Peso (kg)','Longitud (cm)',
            'Anchura (cm)','Altura (cm)','¿Permitir valoraciones de clientes?',
-           'Nota de compra','Precio rebajado','Precio normal','Categorías',
+           'Nota de compra','Precio rebajado','Precio normal','Categorias',
            'Etiquetas','Clase de envío','Imágenes','Límite de descargas',
            'Días de caducidad de la descarga','Superior','Productos agrupados',
            'Ventas dirigidas','Ventas cruzadas','URL externa',
@@ -545,7 +536,7 @@ def generar_csv_wordpress(productos):
                         'Nota de compra': '',
                         'Precio rebajado': '',
                         'Precio normal': producto.get('precio', '').replace('€', '').strip(), #Precio normal en euro 
-                        'Categorías': f"{CATEGORIA_PRINCIPAL} > {SUBCATEGORIAS}{PARENTESIS}", #Ruta de la categoría
+                        'Categorias': f"{CATEGORIA_PRINCIPAL} > {SUBCATEGORIAS}", #Ruta de la categoría
                         'Etiquetas': '',
                         'Clase de envío': '',
                         'Imágenes': producto.get('imagen_wordpress', ''),  # Usar URL directa de la imagen
@@ -704,6 +695,9 @@ def scrapear_pagina(driver, scroll_attempts=200, scroll_pause_time=0, scroll_ste
             # Obtener solo el texto del precio
               #precio_spans = product.xpath('.//div[contains(@class, "l5_k6")]//span/text()')
               precio_spans = product.xpath('.//div[contains(@class, "lj_k1")]/span/text()')
+              
+              if not precio_spans:
+                  precio_spans = product.xpath('.//div[contains(@class, "kr_kj")]/span/text()')
               precio = ''.join(precio_spans) if precio_spans else "N/A"
               print(f"Precio = {precio}")
                  
