@@ -477,7 +477,7 @@ def verificar_imagen_wordpress(ruta_imagen):
             os.chmod(nueva_ruta, 0o666)
             
             # Crear la ruta relativa para WordPress
-            ruta_relativa = nueva_ruta.replace('/opt/lampp/htdocs/wordpress/wp-content/uploads/importados-manuales/', '')
+            ruta_relativa = nueva_ruta.replace('/opt/lampp/htdocs/wordpress/wp-content/uploads/', '')
             
             # Mostrar mensaje de éxito al importar la imagen
             messagebox.showinfo("Éxito", f"Imagen importada con éxito: {nueva_ruta}")
@@ -1012,7 +1012,7 @@ def importar_productos(tabla):
                 return
             #Validar la extensión de la imagen
             _, extension = os.path.splitext(imagen_local)
-            if extension.lower() not in ['.jpg', '.jpeg', '.png']:
+            if extension.lower() not in ['.jpg']:
                 messagebox.showwarning("Advertencia", "La imagen debe ser JPG o PNG.")
                 return
             
@@ -1188,20 +1188,17 @@ def importar_productos(tabla):
                     # Manejo de al imagen
                     if imagen_local and os.path.exists(imagen_local):
                         try:
-                            
-                            # Imprimir la ruta de la imagen
-                            print(f"Imagen: {imagen_local}")
-                            # Obtner la ruta donde está la imagen
-                            # Obtener la ruta de la imagen
-                            url_imagen = imagen_local+"/"
-                            # Obtener la ruta relativa de la imagen
-                            imagen_file = os.path.basename(imagen_local)
+                            #Verificar y copiar la imagen al directorio de WordPress
+                            nueva_ruta, ruta_relativa = verificar_imagen_wordpress(imagen_local)
                             
                             
-                                
-                               
-                            #Insertar la imagen como un nuevo post de tipo 'attachment'
-                            sql_imagen = """
+                            #Si la verificación fue exitosa
+                            if nueva_ruta and ruta_relativa:
+                                # Obtener solo el nombre del archivo
+                                imagen_file = os.path.basename(nueva_ruta)
+
+                                #Insertar la imagen como un nuevo post de tipo 'attachment'
+                                sql_imagen = """
                             INSERT INTO wp_posts (
                                 post_author,
                                 post_date,
@@ -1245,17 +1242,21 @@ def importar_productos(tabla):
                                 
                             )
                             """
+                            
+                            # URL completa para el guid
+                            guid_url = f"http://localhost/wordpress/wp-content/uploads/{ruta_relativa}"
+                            
                             cursor.execute(sql_imagen, (
                                 imagen_file,
                                 imagen_file,
                                 producto_id,
-                                imagen_file
+                                guid_url
                             ))
                             # Obtener el ID de la imagen insertada
                             imagen_id = cursor.lastrowid
                             
                             #obtener la ruta relativa del archivo elinando la parte inicial de la URL completa
-                            ruta_relativa = imagen_local.replace('http://localhost/wordpress/wp-content/uploads/', '')
+                            #ruta_relativa = imagen_local.replace('http://localhost/wordpress/wp-content/uploads/', '')
                             
                             # Relacionar la imagen con el producto
                             sql_meta_imagen = """
